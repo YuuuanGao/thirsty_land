@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <meta charset="utf-8" />
+  <script src="./html2canvas.js"></script>
+  <script src="./vue.js"></script>
+
+</head>
+
+<body>
+  <div style="width:94.45vw;text-align: right;margin-top:1rem;margin-left:2.775vw">THIRSTY LAND</div>
+  <div id="container">
+    <div style="width:10.4vw;height:100vh;" class="box">
+      <div :class="['poster', {'italic': tab.includes('poster')}]"
+        style="margin-left:1.5vw;margin-top:2vh;font-size: 1vw;">poster</div>
+      <div :class="['underline', {'clicked': tab==='poster1'}]" @click="addUnderline('poster1')"
+        style="margin-left:2.5vw;font-size: 1vw;">poster 1</div>
+      <div :class="['underline', {'clicked': tab==='poster2'}]" @click="addUnderline('poster2')"
+        style="margin-left:2.5vw;font-size: 1vw;">poster 2</div>
+
+
+      <div :class="['label', {'italic': tab.includes('label')}]"
+        style="margin-left:1.5vw;margin-top:3vh;font-size: 1vw;">label</div>
+      <div :class="['underline', {'clicked': tab==='label1'}]" @click="addUnderline('label1')"
+        style="margin-left:2.5vw;font-size: 1vw;">label 1</div>
+      <div :class="['underline', {'clicked': tab==='label2'}]" @click="addUnderline('label2')"
+        style="margin-left:2.5vw;font-size: 1vw;">label 2</div>
+      <div :class="['underline', {'clicked': tab==='label3'}]" @click="addUnderline('label3')"
+        style="margin-left:2.5vw;font-size: 1vw;">label 3</div>
+      <div :class="['packaging', {'italic': tab.includes('packaging')}]"
+        style="margin-left:1.5vw;margin-top:3vh;font-size: 1vw;">packaging</div>
+      <div :class="['underline', {'clicked': tab==='packaging1'}]" @click="addUnderline('packaging1')"
+        style="margin-left:2.5vw;font-size: 1vw;">packaging 1</div>
+      <div :class="['underline', {'clicked': tab==='packaging2'}]" @click="addUnderline('packaging2')"
+        style="margin-left:2.5vw;font-size: 1vw;">packaging 2</div>
+
+
+    </div>
+    <div style="width:22.3vw;" class="box">
+
+      <div id="title" style="margin-left:1.5vw;margin-top:2vh;font-size: 1vw;">{{tab.slice(0, -1)}} {{tab.slice(-1)}}
+      </div>
+
+
+      <div id="logobox" v-if="tab!=='label2'&&tab!=='label3'">
+        <div style="margin-left:1.5vw;margin-top:1vh;font-size: 1vw;">logo <button class="bz" @click="hideall(0,'logo')"
+            :style="{ backgroundColor: buttonStates[0] ? 'black' : 'white', color: buttonStates[0] ? 'white' : 'black' }"></button>
+        </div>
+
+
+        <div class="b2">
+          <div style="padding-left:1vw ;padding-top:1vh ;font-size: 0.8vw;">logo</div>
+
+
+          <div style="padding-left:1vw;margin-top:1vh">
+            <input type="radio" checked id="radio1" name="customRadio">
+            <label for="radio1" @click="logoeHandle(0)" class="custom-radio">A</label>
+
+            <input type="radio" id="radio2" name="customRadio">
+            <label for="radio2" @click="logoeHandle(1)" class="custom-radio">B</label>
+
+            <input type="radio" id="radio3" name="customRadio">
+            <label for="radio3" @click="logoeHandle(2)" class="custom-radio">C</label>
+          </div>
+          <div style="padding-left:1vw ;padding-top:1vh ;font-size: 0.8vw;">positionY</div>
+
+
+          <div style="padding-left:1vw;margin-top:1vh">
+            <div class="slider">
+              <input id="logoy" type="range" min="0" max="700" value="50">
+            </div>
+          </div>
+          <div style="padding-left:1vw ;padding-top:1vh ;font-size: 0.8vw;">scale</div>
+
+
+          <div style="padding-left:1vw;margin-top:0.5vh">
+            <input type="radio" checked id="radio4" name="customRadio1">
+            <label for="radio4" @click="logoscale(0.65)" class="custom-radio1"></label>
+
+            <input type="radio" id="radio5" name="customRadio1">
+            <label for="radio5" @click="logoscale(0.6)" class="custom-radio1"></label>
+
+            <input type="radio" id="radio6" name="customRadio1">
+            <label for="radio6" @click="logoscale(0.5)" class="custom-radio1"></label>
+            <input type="radio" id="radio7" name="customRadio1">
+            <label for="radio7" @click="logoscale(0.4)" class="custom-radio1"></label>
+          </div>
+
+
+        </div>
+      </div>
+
+
+      <div id="lbox" v-if="tab.includes('poster')||tab=='packaging1'">
+        <div style="margin-left:1.5vw;margin-top:1vh;font-size: 1vw;">line <button class="bz" @click="hideall(1,'line')"
+            :style="{ backgroundColor: buttonStates[1] ? 'black' : 'white', color: buttonStates[1] ? 'white' : 'black' }"></button>
+        </div>
+
+
+        <div class="b2">
+
+          <div style="padding-left:1vw ;padding-top:1vh ;font-size: 0.8vw;">positionX</div>
+
+
+          <div style="padding-left:1vw;margin-top:1vh">
+            <div class="slider">
+              <input id="linex" type="range" min="-300" max="300" value="0">
+            </div>
+          </div>
+          <div style="padding-left:1vw ;padding-top:1vh ;font-size: 0.8vw;">positionY</div>
+
+
+          <div style="padding-left:1vw;margin-top:1vh">
+            <div class="slider">
+              <input id="liney" type="range" min="-200" max="600" value="50">
+            </div>
+          </div>
+          <div style="padding-left:1vw ;padding-top:1vh ;font-size: 0.8vw;">rotation</div>
+
+
+          <div style="padding-left:1vw;margin-top:1vh">
+            <div class="slider">
+              <input id="liner" type="range" min="0" max="360" value="0">
+            </div>
+          </div>
+          <div style="padding-left:1vw ;padding-top:1vh ;font-size: 0.8vw;">scale</div>
+
+          <!-- //line scale大小调整-->
+          <div style="padding-left:1vw;margin-top:0.5vh">
+            <input type="radio" checked id="radio8" name="customRadio2">
+            <label for="radio8" @click="lineHandle(0.8)" class="custom-radio2"></label>
+
+            <input type="radio" id="radio9" name="customRadio2">
+            <label for="radio9" @click="lineHandle(1)" class="custom-radio2"></label>
+
+            <input type="radio" id="radio10" name="customRadio2">
+            <label for="radio10" @click="lineHandle(2)" class="custom-radio2"></label>
+            <input type="radio" id="radio11" name="customRadio2">
+            <label for="radio11" @click="lineHandle(3)" class="custom-radio2"></label>
+          </div>
+
+
+        </div>
+      </div>
+
+
+      <div id="ibox" v-if="tab!=='label2'">
+        <div style="margin-left:1.5vw;margin-top:1vh;font-size: 1vw;">image <button class="bz" @click="hideall(2,'img')"
+            :style="{ backgroundColor: buttonStates[2] ? 'black' : 'white', color: buttonStates[2] ? 'white' : 'black' }"></button>
+        </div>
+
+
+        <div class="b2">
+
+          <div style="padding-left:1vw ;padding-top:1vh ;font-size: 0.8vw;">
+            <input type="file" ref="fileInput" @change="handleFileUpload" style="display: none;">
+
+            <button style="border-radius: 10px;border: 1px solid black;background-color: white;"
+              @click="uploadImage">uploadImage</button>
+          </div>
+
+
+          <div style="padding-left:1vw ;padding-top:1vh ;font-size: 0.8vw;">mask</div>
+
+
+          <div style="padding-left:1vw;margin-top:1vh">
+            <input type="radio" checked id="radio21" name="customRadio33">
+            <label for="radio21" @click=imgmask(0) class="custom-radio33">no mask</label>
+            <input type="radio" id="radio22" name="customRadio33">
+            <label for="radio22" @click=imgmask(1) class="custom-radio33">mask 1</label>
+
+            <input type="radio" id="radio23" name="customRadio33">
+            <label for="radio23" @click=imgmask(2) class="custom-radio33">mask 2</label>
+
+
+          </div>
+          <div style="padding-left:1vw ;padding-top:1vh ;font-size: 0.8vw;">style</div>
+
+
+          <div style="padding-left:1vw;margin-top:1vh">
+            <input type="radio" checked id="radio32" name="customRadio43">
+            <label for="radio32" @click=imgstyle(0) class="custom-radio43">A</label>
+
+            <input type="radio" id="radio33" name="customRadio43">
+            <label for="radio33" @click=imgstyle(1) class="custom-radio43">B</label>
+
+
+          </div>
+          <div style="padding-left:1vw ;padding-top:1vh ;font-size: 0.8vw;">color</div>
+
+
+          <div style="padding-left:1vw;margin-top:1vh">
+            <input type="radio" checked id="radio12" name="customRadio3">
+            <label for="radio12" @click=imgcolor(0) class="custom-radio3">A</label>
+
+            <input type="radio" id="radio13" name="customRadio3">
+            <label for="radio13" @click=imgcolor(1) class="custom-radio3">B</label>
+
+
+          </div>
+          <div style="padding-left:1vw ;padding-top:1vh ;font-size: 0.8vw;">positionX</div>
+
+
+          <div style="padding-left:1vw;margin-top:1vh">
+            <div class="slider">
+              <input id="xOffset" type="range" min="-100" max="600" value="0">
+            </div>
+          </div>
+          <div style="padding-left:1vw ;padding-top:1vh ;font-size: 0.8vw;">positionY</div>
+
+
+          <div style="padding-left:1vw;margin-top:1vh">
+            <div class="slider">
+              <input id="yOffset" type="range" min="-100" max="600" value="0">
+            </div>
+          </div>
+          <div style="padding-left:1vw ;padding-top:1vh ;font-size: 0.8vw;">scale</div>
+
+
+          <div style="padding-left:1vw;margin-top:1vh">
+            <div class="slider">
+              <input type="range" id="scaleValue" min="0" max="20" value="10">
+            </div>
+          </div>
+          <div style="padding-left:1vw ;padding-top:1vh ;font-size: 0.8vw;">rotation</div>
+
+
+          <div style="padding-left:1vw;margin-top:1vh">
+            <div class="slider">
+              <input type="range" id="rotationAngle" min="0" max="360" value="0">
+            </div>
+          </div>
+
+
+
+        </div>
+      </div>
+
+
+      <div id="label2box" v-if="tab=='label2'">
+        <div style="margin-left:1.5vw;margin-top:1vh;font-size: 1vw;">image(technique icon) <button class="bz"
+            @click="hideall(3,'imgti')"
+            :style="{ backgroundColor: buttonStates[3] ? 'black' : 'white', color: buttonStates[3] ? 'white' : 'black' }"></button>
+        </div>
+
+
+        <div class="b2">
+
+          <div style="padding-left:1vw ;padding-top:1vh ;font-size: 0.8vw;">
+            <input type="file" ref="fileInput" @change="handleFileUpload" style="display: none;">
+
+            <button style="border-radius: 10px;border: 1px solid black;background-color: white"
+              @click="uploadImage">uploadImage</button>
+          </div>
+
+
+          <div style="padding-left:1vw ;padding-top:1vh ;font-size: 0.8vw;">color</div>
+
+
+          <div style="padding-left:1vw;margin-top:1vh">
+            <input type="radio" checked id="radio12" name="customRadio3">
+            <label for="radio12" @click=imgcolor(0) class="custom-radio3">A</label>
+
+            <input type="radio" id="radio13" name="customRadio3">
+            <label for="radio13" @click=imgcolor(1) class="custom-radio3">B</label>
+
+
+          </div>
+
+
+          <div style="padding-left:1vw ;padding-top:1vh ;font-size: 0.8vw;">polygon sides</div>
+
+
+          <div style="padding-left:1vw;margin-top:0.5vh">
+            <input type="radio" checked id="radio8" name="customRadio2">
+            <label for="radio8" @click=polygon(4) class="custom-radio2"></label>
+
+            <input type="radio" id="radio9" name="customRadio2">
+            <label for="radio9" @click=polygon(5) class="custom-radio2"></label>
+
+            <input type="radio" id="radio10" name="customRadio2">
+            <label for="radio10" @click=polygon(6) class="custom-radio2"></label>
+            <input type="radio" id="radio11" name="customRadio2">
+            <label for="radio11" @click=polygon(7) class="custom-radio2"></label>
+            <input type="radio" id="radio22" name="customRadio2">
+            <label for="radio22" @click=polygon(8) class="custom-radio2"></label>
+
+            <input type="radio" id="radio23" name="customRadio2">
+            <label for="radio23" @click=polygon(9) class="custom-radio2"></label>
+
+            <input type="radio" id="radio24" name="customRadio2">
+            <label for="radio24" @click=polygon(10) class="custom-radio2"></label>
+            <input type="radio" id="radio25" name="customRadio2">
+            <label for="radio25" @click=polygon(11) class="custom-radio2"></label>
+
+          </div>
+
+
+
+
+        </div>
+      </div>
+
+
+      <div id="label21tbox" v-if="tab=='label2'">
+        <div style="margin-left:1.5vw;margin-top:1vh;font-size: 1vw;">text (technique name) <button class="bz"
+            @click="hideall(4,'txttn')"
+            :style="{ backgroundColor: buttonStates[4] ? 'black' : 'white', color: buttonStates[4] ? 'white' : 'black' }"></button>
+        </div>
+
+
+        <div class="b2">
+
+          <div style="padding-left:1vw ;padding-top:1vh ;font-size: 0.8vw;">text input</div>
+
+
+          <div style="padding-left:1vw;margin-top:1vh">
+            <div>
+              <textarea style="height:8vh;" id="m1" v-model="ttx"></textarea>
+
+            </div>
+
+
+          </div>
+
+
+
+
+        </div>
+      </div>
+      <div id="label22tbox" v-if="tab=='label2'||tab=='label3'">
+        <div style="margin-left:1.5vw;margin-top:1vh;font-size: 1vw;">text (body text) <button class="bz"
+            @click="hideall(5,'txtbd')"
+            :style="{ backgroundColor: buttonStates[5] ? 'black' : 'white', color: buttonStates[5] ? 'white' : 'black' }"></button>
+        </div>
+
+
+        <div class="b2">
+
+          <div style="padding-left:1vw ;padding-top:1vh ;font-size: 0.8vw;">text input</div>
+
+
+          <div style="padding-left:1vw;margin-top:1vh">
+            <div>
+              <textarea style="height:8vh;" v-model="tx"></textarea>
+
+            </div>
+            <!-- <button style="border-radius: 10px;border: 1px solid black;"
+              @click="document.getElementById('fileInput').click()">uploadText</button> -->
+          </div>
+
+
+
+
+        </div>
+      </div>
+      <div id="tbox" v-if="tab.includes('poster')">
+        <div style="margin-left:1.5vw;margin-top:1vh;font-size: 1vw;">text <button class="bz" @click="hideall(6,'txt')"
+            :style="{ backgroundColor: buttonStates[6] ? 'black' : 'white', color: buttonStates[6] ? 'white' : 'black' }"></button>
+        </div>
+
+
+        <div class="b2">
+          <div style="padding-left:1vw ;padding-top:1vh ;font-size: 0.8vw;">style</div>
+
+
+          <div style="padding-left:1vw;margin-top:1vh">
+            <input type="radio" checked @click="handleRadioClick(0)" id="radio14" name="customRadio4">
+            <label for="radio14" class="custom-radio4">A</label>
+
+            <input type="radio" @click="handleRadioClick(1)" id="radio15" name="customRadio4">
+            <label for="radio15" class="custom-radio4">B</label>
+
+            <input type="radio" @click="handleRadioClick(2)" id="radio16" name="customRadio4">
+            <label for="radio16" class="custom-radio4">C</label>
+          </div>
+          <div style="padding-left:1vw ;padding-top:1vh ;font-size: 0.8vw;">text input </div>
+
+
+          <div style="padding-left:1vw;margin-top:1vh">
+            <div v-if="textSty==0||textSty==2">
+              <textarea id="textContent" v-model="tx" style="height:8vh;"></textarea>
+
+            </div>
+            <div v-if="textSty==1" v-for="index in textCount" :key="index">
+              <textarea style="width:40%" id="textContent" style="height:8vh;" v-model="tv[index-1][0]"></textarea>
+
+
+              <textarea style="width:40%" id="t2" v-model="tv[index-1][1]" style="height:8vh;"></textarea>
+
+
+
+            </div>
+
+          </div>
+          <div style="padding-left:1vw;margin-top:1vh" v-if="textSty==1">
+            <button @click="addtext">add</button>
+          </div>
+          <div style="padding-left:1vw ;padding-top:1vh ;font-size: 0.8vw;">positionY</div>
+
+
+          <div style="padding-left:1vw;margin-top:1vh">
+            <div class="slider">
+              <input id="textY" type="range" min="-100" max="600" value="0">
+            </div>
+          </div>
+
+
+
+        </div>
+      </div>
+    </div>
+
+
+
+    <!-- right -->
+    <div style="width:56.2vw;height:100vh;background-color: black;display: flex;
+    justify-content: center;
+    align-items: center;" class="box">
+
+
+
+      <div id="post1" v-if="tab=='poster1'" style="width:630px;height:800px;background-color: white;margin:0 auto">
+
+        <iframe id="fra"  style="width:630px;height:800px;" src="./post1/index.html" frameborder="0"></iframe>
+
+      </div>
+      <div id="post2" v-if="tab=='poster2'" style="width:400px;height:400px;background-color: white;margin:0 auto">
+
+        <iframe id="fra" style="width:400px;height:400px;" src="./post2/index.html" frameborder="0"></iframe>
+
+      </div>
+      <div id="label1" v-if="tab=='label1'" style="width:410px;height:530px;background-color: white;margin:0 auto">
+
+        <iframe id="fra" style="width:410px;height:530px;" src="./label1/index.html" frameborder="0"></iframe>
+
+      </div>
+      <div id="label1" v-if="tab=='label2'" style="width:410px;height:530px;background-color: white;margin:0 auto">
+
+        <iframe id="fra" style="width:410px;height:530px;" src="./label2/index.html" frameborder="0"></iframe>
+
+      </div>
+      <div id="label1" v-if="tab=='label3'" style="width:410px;height:530px;background-color: white;margin:0 auto">
+
+        <iframe id="fra" style="width:410px;height:530px;" src="./label3/index.html" frameborder="0"></iframe>
+
+      </div>
+      <!-- <div id="label1" v-if="tab=='packaging1'" style="width:470px;height:590px;background-color: white;margin:0 auto">
+        
+        <iframe id="fra" style="width:470px;height:590px;" src="./packaging1/index.html" frameborder="0"></iframe>
+
+      </div> -->
+
+      <div>
+
+
+        <div class="n2" v-if="tab=='packaging1'">
+          <img style="width:490px" src="./img/4.png" alt="">
+        </div>
+        <div id="label1" v-if="tab=='packaging1'"
+          style="width:470px;height:590px;background-color: white;margin:0 auto">
+
+          <iframe id="fra" style="width:470px;height:590px;" src="./packaging1/index.html" frameborder="0"></iframe>
+
+        </div>
+
+
+      </div>
+      <div>
+
+
+        <div class="n1" v-if="tab=='packaging2'">
+          <img style="width:200px;margin-bottom:-10px" src="./img/3.png" alt="">
+        </div>
+        <div id="label1" v-if="tab=='packaging2'"
+          style="width:440px;height:560px;background-color: white;margin:0 auto">
+
+          <iframe id="fra" style="width:440px;height:560px;" src="./packaging2/index.html" frameborder="0"></iframe>
+
+        </div>
+
+
+
+
+
+      </div>
+      <button style="border-radius: 10px;border: 1px solid black;background-color: white;position: absolute;right:5%"
+        onclick="saveAsPNG()">save_png</button>
+
+    </div>
+  </div>
+
+
+  <script>
+
+      function saveAsPNG() {
+        // console.log(22222)
+
+      const element = document.getElementById("fra").contentWindow.document.body;
+
+      html2canvas(element).then((canvas) => {
+      const link = document.createElement('a');
+      link.href = canvas.toDataURL('image/png');
+      link.download = 'iframe-content.png';
+      link.click();
+      }).catch((error) => {
+      console.error('Error capturing the element:', error);
+      });
+      }
+    new Vue({
+      el: '#container',
+      data: {
+        tab: "poster1",
+        textSty: 0,
+        textCount: 1,
+        tx: "",
+        ttx: "",
+        buttonStates: Array(7).fill(false),
+        tv: Array.from({ length: 5 }, () => ['', ''])
+      },
+      watch: {
+        tv: {
+          handler(newVal, oldVal) {
+
+
+
+            document.getElementById('fra').contentWindow.gettextContent(1, newVal)
+
+
+          },
+          deep: true
+        },
+        tx: {
+          handler(newVal, oldVal) {
+
+
+            document.getElementById('fra').contentWindow.gettextContent(this.textSty, newVal)
+
+
+          },
+          deep: true
+        },
+        ttx: {
+          handler(newVal, oldVal) {
+
+
+            document.getElementById('fra').contentWindow.gettextContent1(this.textSty, newVal)
+
+
+          },
+          deep: true
+        },
+      },
+
+      mounted() {
+
+
+        // this.tab= sessionStorage.getItem("tb")
+
+        if (sessionStorage.getItem("tb")) {
+
+          this.tab = sessionStorage.getItem("tb")
+
+        }
+
+        // else{
+
+
+
+        // }
+      },
+      methods: {
+        toggleElement() {
+          this.showElement = !this.showElement;
+        },
+        addUnderline(element) {
+          console.log(this.tab)
+          this.tab = element
+
+
+          sessionStorage.setItem("tb", element)
+
+          this.buttonStates = Array(7).fill(false)
+
+          window.location.reload();
+
+
+        },
+        hideall(p, i) {
+
+          this.buttonStates[p] = !this.buttonStates[p];
+
+          console.log(this.buttonStates[p])
+
+          document.getElementById('fra').contentWindow.hideall(i)
+
+          this.$forceUpdate()
+
+        },
+
+        imgmask(i) {
+
+          document.getElementById('fra').contentWindow.imgmask(i)
+        },
+        imgstyle(i) {
+
+          document.getElementById('fra').contentWindow.imgstyle(i)
+        },
+
+        lineHandle(i) {
+
+
+          sessionStorage.setItem("lineScale", i)
+
+        },
+        addtext() {
+
+          this.textCount++
+
+        },
+        logoeHandle(i) {
+
+
+          sessionStorage.setItem("svgtt", i)
+
+        },
+        logoscale(i) {
+
+
+          sessionStorage.setItem("logoscale", i)
+
+        },
+        imgcolor(i) {
+
+
+          document.getElementById('fra').contentWindow.imgcolor(i)
+
+        },
+        polygon(i) {
+
+
+          document.getElementById('fra').contentWindow.polygon(i)
+
+        },
+   
+        handleFileUpload(event) {
+          let file = event.target.files[0];
+
+
+
+          if (file) {
+
+            const reader = new FileReader();
+
+            reader.onload = function (e) {
+              const imageSrc = e.target.result;
+
+
+              sessionStorage.setItem("imageSrc", imageSrc);
+
+
+              document.getElementById('fra').contentWindow.handleFile();
+
+
+            }
+
+            reader.readAsDataURL(file);
+          }
+
+        },
+        uploadImage() {
+          this.$refs.fileInput.click(); // 模拟点击文件输入框
+        },
+        handleRadioClick(value) {
+
+          this.textSty = value
+
+
+
+
+        }
+      }
+    });
+
+
+
+  </script>
+
+
+
+</body>
+
+</html>
